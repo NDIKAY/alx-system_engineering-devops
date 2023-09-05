@@ -1,2 +1,2 @@
 #!/bin/bash
-crep '^[[:alpha:]]' /etc/ssh/sshd_config
+crep ^[[:alpha:]] /etc/ssh/sshd_config
