@@ -2,5 +2,5 @@
 #Bash script that displays a list of currently running processes.
 
 #shellcheck disable=SC2009
-s -aux | grep bash
+ps -aux | grep bash
 
