@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Confugure a Nginx server to listen on port 80
-
-#create a symbolic linl (-s option) between the ginx configuration file
+ 
+# create a symbolic linl (-s option) between the ginx configuration file
 # and the enabled sites directory
-ln -sf/etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-#restar nginx
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# restar nginx
 service nginx start
-#terminate thee Nginx procedd ID
-kill "$(pgrep 'nginx' | head -l)"
+# terminate thee Nginx procedd ID
+kill "$(pgrep 'nginx' | head -1)"
