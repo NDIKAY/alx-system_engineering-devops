@@ -19,10 +19,10 @@ sudo chown -R "$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
 #Backup default index 
-sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
 #Creating new index
-echo -e "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html >/dev/null
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
 #Restarting nginx
 sudo service nginx restart
