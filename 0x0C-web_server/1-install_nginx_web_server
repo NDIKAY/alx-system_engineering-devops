@@ -1,23 +1,30 @@
 #!/usr/bin/env bash
 # Installs and configures Nginx on web01 server to serve a Hello World! page
 
-# Install Nginx
-apt-get update
+echo -e "uodating and installing Nginx.\n"
+sudo apt-get update -y -qq &&\
 apt-get install -y nginx
+	sudo apt-get install nginx -y
 
-# Configure Nginx to listen on port 80
-sed -i 's/^listen\s*80;/listen 80;/g' /etc/nginx/sites-available/default
+echo -e "\nsetting up some minor stuff.\n"
 
-# Restart Nginx (without using systemctl)
-service nginx restart > /dev/null 2>&1 || /etc/init.d/nginx restart > /dev/null 2>&1
+# strart nginx service
+sudo service nginx start
 
-# Create index.html with "Hello World!" message
-echo "Hello World!" > /var/www/html/index.html
+#allowing nginx on firewell
+sudo ufw allow "nginx HTTP"
 
-# Check if Nginx is running and returns 200 for /
-curl -sI localhost | grep -q "200 OK"
-if [ $? -eq 0 ]; then
-    echo "Nginx is installed and returning 200 for /"
-else
-    echo "Nginx is not returning 200 for /"
-fi
+# Give to user ownership to website files for easy editing
+sudo chown -R "$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+#Backup default index 
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.tml.bckp
+
+#Creating new index
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+#Restarting nginx
+sudo service nginx restart
+
+echo -e "\nComleted."
