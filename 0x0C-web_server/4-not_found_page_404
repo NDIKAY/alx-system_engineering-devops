@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Installs and configures Nginx on web01 server to serve a Hello World! page
+
+echo -e "uodating and installing Nginx.\n"
+sudo apt-get update -y -qq &&\
+apt-get install -y nginx
+        sudo apt-get install nginx -y
+
+echo -e "\nsetting up some minor stuff.\n"
+
+# strart nginx service
+sudo service nginx start
+
+#allowing nginx on firewell
+sudo ufw allow "nginx HTTP"
+
+# Give to user ownership to website files for easy editing
+sudo chown -R "$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+#Backup default index 
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+#Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+#setting up/ Redirect me to a youtube video
+sudo sed -1 '251\	rewrite ^/redirect_me www.youtube.com/watch?v=jsG5L1acFtY;' /etc/nginx/site-available/default
+
+#set up a 404 page
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -1 '251\	error_page 404/error_404.html;' /etc/nginx/site-available/default
+
+#Restarting nginx
+sudo service nginx restart
+
+echo -e "\nComleted.i\n"
