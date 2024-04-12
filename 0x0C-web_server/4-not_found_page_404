@@ -25,13 +25,13 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
 #setting up/ Redirect me to a youtube video
-sudo sed -1 '251\	rewrite ^/redirect_me www.youtube.com/watch?v=jsG5L1acFtY;' /etc/nginx/site-available/default
+sudo sed -i '25i\	rewrite ^/redirect_me www.youtube.com/watch?v=jsG5L1acFtY;' /etc/nginx/site-available/default
 
 #set up a 404 page
 echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
-sudo sed -1 '251\	error_page 404/error_404.html;' /etc/nginx/site-available/default
+sudo sed -i '25i\	error_page 404/error_404.html;' /etc/nginx/site-available/default
 
 #Restarting nginx
 sudo service nginx restart
 
-echo -e "\nComleted.i\n"
+echo -e "\nCompleted.\n"
