@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-# Confugure a Nginx server to listen on port 80
- 
-# create a symbolic linl (-s option) between the ginx configuration file
-# and the enabled sites directory
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-# restar nginx
-service nginx start
-# terminate thee Nginx procedd ID
-kill "$(pgrep 'nginx' | head -1)"
+# configures a server to listening on port 80 of all servers active IPv4 IPs
+
+sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+echo "" | sudo dd status=none of=/run/nginx.pid
