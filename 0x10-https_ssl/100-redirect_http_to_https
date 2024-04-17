@@ -33,17 +33,17 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend dulcisfrontend
+frontend clickviral-frontend
         bind *:80
         mode http
         http-request redirect scheme https code 301 unless { ssl_fc }
         http-request set-header X_Forwarded-Proto http
-        default_backend dulcis-backckend
+        default_backend clickviral-backend
 
-frontend dulcis-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/dulcis.tech.pem
+frontend clickviral-frontend-https
+        bind *:443 ssl crt /etc/haproxy/certs/clickviral.tech.pem
         http-request set-header X-Forwarded-Proto https
-        default_backend dulcis-backend
+        default_backend clickviral-backend
 
 backend dulcis-backend
         balance roundrobin
