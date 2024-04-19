@@ -41,11 +41,11 @@ frontend clickviral-frontend
         default_backend clickviral-backend
 
 frontend clickviral-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/clickviral.tech.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.dulcis.tech/www.dulcis.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend clickviral-backend
 
 backend clickviral-backend
-    balance roundrobin
-    server 527273-web-01 54.209.116.64:80 check
-    server 527273-web-02 18.207.141.238:80 check
+        balance roundrobin
+        server 527273-web-01 54.209.116.64:80 check
+        server 527273-web-02 18.207.141.238:80 check
